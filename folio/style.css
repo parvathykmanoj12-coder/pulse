@@ -1,0 +1,403 @@
+/* ========================================== */
+/* style.css — DESIGN TOKENS (TOP OF FILE)    */
+/* ========================================== */
+
+:root {
+    /* Colours — same hex codes as your Figma Foundations */
+    --primary: #5A8FB0;
+    --ink: #1a1a1a;
+    --ink-muted: #6B6B6B;
+    --surface: #FCFAF3;
+    --card: #FFFFFF;
+    --border: #EFE9D8;
+    --pri-high: #C76A55;  --pri-med: #C9A23A;  --pri-low: #7A9165;
+
+    /* Type scale — matches your S01 text styles */
+    --display: clamp(2.2rem, 6vw, 3.6rem);
+    --h1: 2rem;  --h2: 1.6rem;  --h3: 1.2rem;  --body: 1rem;
+    --cap: 0.875rem;  --sm: 0.75rem;
+
+    /* Spacing — 8-point grid in rem */
+    --s4: 0.25rem;  --s8: 0.5rem;  --s12: 0.75rem;  --s16: 1rem;
+    --s24: 1.5rem;  --s32: 2rem;  --s48: 3rem;  --s64: 4rem;
+
+    /* Radius + shadow */
+    --r-sm: 8px;  --r-md: 12px;  --r-lg: 16px;  --r-pill: 999px;
+    --shadow: 0 4px 16px rgba(26,26,26,0.06);
+}
+/* ========================================== */
+/* 3.2 DARK MODE — JUST REDEFINE THE COLOURS  */
+/* ========================================== */
+body.dark {
+    --primary:    #7FB3D5;
+    --ink:        #F5F1E4;
+    --ink-muted:  #98A3AC;
+    --surface:    #0F1419;
+    --card:       #1A2332;
+    --border:     rgba(255, 255, 255, 0.12);
+    --shadow:     0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================== */
+/* 3.3 RESET + BASE — ADD BELOW DARK MODE    */
+/* ========================================== */
+
+/* Reset: predictable sizing, no surprise gaps */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html { 
+    scroll-behavior: smooth; /* nav links glide, don't jump */
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--surface);
+    color: var(--ink);
+    line-height: 1.65;
+    transition: background-color 0.3s ease, color 0.3s ease; /* smooth dark fade */
+}
+
+a { 
+    color: inherit; 
+    text-decoration: none; 
+}
+
+ul { 
+    list-style: none; 
+}
+
+.container { /* centres content, caps width */
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 var(--s24);
+}
+/* ========================================== */
+/* 5.1 NAVIGATION STYLES                      */
+/* ========================================== */
+nav {
+    position: sticky; top: 0; z-index: 100; /* stays on top when scrolling */
+    background-color: var(--surface); border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: var(--s16) var(--s24);
+}
+.nav-links { display: flex; align-items: center; gap: var(--s24); }
+.nav-links a { color: var(--ink-muted); font-weight: 500; }
+.nav-links a:hover { color: var(--primary); }
+.theme-btn {
+    background: none; border: 1px solid var(--border); border-radius: var(--r-pill);
+    padding: var(--s4) var(--s12); cursor: pointer;
+}
+
+/* ========================================== */
+/* 5.2 HERO + BUTTON STYLES                   */
+/* ========================================== */
+.hero {
+    padding: var(--s64) 0; min-height: 70vh; display: flex; align-items: center;
+}
+.hero-name {
+    font-size: var(--display); font-weight: 800; line-height: 1.05; margin: var(--s8) 0;
+}
+.hero-role, .hero-tag { color: var(--ink-muted); font-size: var(--h3); }
+.highlight { color: var(--primary); font-weight: 600; }
+.hero-bio { max-width: 52ch; color: var(--ink-muted); margin-bottom: var(--s32); }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: var(--s16); }
+
+.btn {
+    display: inline-block; padding: var(--s12) var(--s24); border-radius: var(--r-md);
+    font-weight: 600; cursor: pointer; transition: transform 0.15s ease;
+}
+.btn:hover { transform: translateY(-2px); } /* lifts on hover */
+.btn-primary { background-color: var(--primary); color: #fff; border: none; }
+.btn-secondary { border: 2px solid var(--border); color: var(--ink); }
+/* ========================================== */
+/* 5.3 SECTIONS + PROJECTS GRID + CARDS      */
+/* ========================================== */
+.section { padding: var(--s64) 0; }
+.section-alt { background-color: var(--card); }
+.section-label { 
+    color: var(--primary); font-size: var(--sm); letter-spacing: 0.18em; 
+    text-transform: uppercase; 
+}
+.section-title { font-size: var(--h1); font-weight: 800; margin-bottom: var(--s32); }
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--s24);
+}
+
+.card {
+    display: flex; flex-direction: column;
+    background-color: var(--card); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: var(--s24); box-shadow: var(--shadow);
+    transition: transform 0.2s ease;
+}
+.card:hover { transform: translateY(-4px); }
+
+.card-tag { color: var(--primary); font-size: var(--sm); text-transform: uppercase; }
+.card-title { font-size: var(--h3); font-weight: 700; margin: var(--s8) 0 var(--s12); }
+.card-desc { flex: 1; color: var(--ink-muted); font-size: var(--cap); }
+.card-meta { display: flex; flex-wrap: wrap; gap: var(--s8); margin: var(--s16) 0; }
+.chip { 
+    font-size: var(--sm); padding: var(--s4) var(--s12); border-radius: var(--r-pill);
+    border: 1px solid var(--border); 
+}
+.card-link { color: var(--primary); font-weight: 600; }
+/* ========================================== */
+/* 5.4 SKILL BAR + RESPONSIVE                  */
+/* ========================================== */
+
+.skill-track { 
+    height: 8px; background: var(--border); border-radius: var(--r-pill);
+    overflow: hidden; 
+}
+
+.skill-fill { 
+    height: 100%; width: var(--w); /* set per-skill in HTML */
+    border-radius: var(--r-pill); 
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 600px) {
+    .hero { min-height: auto; padding: var(--s48) 0; }
+    .nav-links { gap: var(--s16); }
+    .section { padding: var(--s48) 0; }
+    .contact-link { width: 100%; }
+}
+/* ========================================== */
+/* 5.4 SKILL BAR + RESPONSIVE                  */
+/* ========================================== */
+
+.skill-track { 
+    height: 8px; background: var(--border); border-radius: var(--r-pill);
+    overflow: hidden; 
+}
+
+.skill-fill { 
+    height: 100%; width: var(--w); /* set per-skill in HTML */
+    border-radius: var(--r-pill); 
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 600px) {
+    .hero { min-height: auto; padding: var(--s48) 0; }
+    .nav-links { gap: var(--s16); }
+    .section { padding: var(--s48) 0; }
+    .contact-link { width: 100%; }
+}
+/* ========================================== */
+/* SUPPLEMENTARY TASK: BLOG STYLES           */
+/* ========================================== */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--s24);
+}
+
+.blog-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface); /* Contrast color change against section-alt */
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--s24);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-4px);
+}
+
+.blog-meta {
+    margin-bottom: var(--s8);
+}
+
+.blog-date {
+    font-size: var(--sm);
+    color: var(--ink-muted);
+}
+
+.blog-title {
+    font-size: var(--h3);
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: var(--s12);
+}
+
+.blog-excerpt {
+    flex: 1; /* Pushes the Read More link perfectly to the bottom line */
+    color: var(--ink-muted);
+    font-size: var(--cap);
+    line-height: 1.5;
+    margin-bottom: var(--s16);
+    
+    /* Elegant 2-line clipping limit */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.blog-link {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: var(--cap);
+}
+/* ========================================== */
+/* SUPPLEMENTARY TASK: FIGMA EMBED STYLES     */
+/* ========================================== */
+.figma-embed-container {
+    margin-top: var(--s48);
+    padding-top: var(--s32);
+    border-top: 1px solid var(--border);
+}
+
+.embed-title {
+    font-size: var(--h2);
+    font-weight: 700;
+    margin-bottom: var(--s8);
+}
+
+.embed-desc {
+    color: var(--ink-muted);
+    font-size: var(--cap);
+    margin-bottom: var(--s24);
+    max-width: 65ch;
+}
+
+/* Maintain a beautiful 16:9 responsive aspect ratio for the frame */
+.iframe-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.iframe-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: var(--card);
+}
+/* ========================================== */
+/* FIGMA EMBED INSIDE CARD COMPONENT          */
+/* ========================================== */
+.iframe-wrapper.card-embed {
+    position: relative;
+    width: 100%;
+    padding-top: 65%; /* Square-ish mobile ratio fits perfectly inside a card grid */
+    border-radius: var(--r-md);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    margin-top: var(--s16);
+    margin-bottom: var(--s16); /* Keeps clean margins above the footer link */
+    box-shadow: var(--shadow);
+}
+
+.iframe-wrapper.card-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: var(--surface);
+}
+/* ========================================== */
+/* SUPPLEMENTARY TASK: FILTER GALLERY STYLES  */
+/* ========================================== */
+.gallery-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--s16);
+    margin-bottom: var(--s32);
+    margin-top: var(--s16);
+}
+
+.filter-buttons {
+    display: flex;
+    gap: var(--s8);
+}
+
+.filter-btn {
+    background: var(--card);
+    color: var(--ink-muted);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: var(--r-pill, 50px);
+    font-weight: 500;
+    font-size: var(--cap, 14px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+}
+
+.project-counter {
+    font-size: var(--cap, 14px);
+    color: var(--ink-muted);
+    font-weight: 500;
+}
+
+/* This handles the smooth fading and scaling transitions */
+.projects-grid .card {
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+}
+
+/* When the JS adds this class, the card fades and smoothly shrinks away */
+.projects-grid .card.hide-card {
+    opacity: 0;
+    transform: scale(0.9);
+    visibility: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    overflow: hidden;
+}
+/* ========================================== */
+/* OPTIMIZED FILTER TRANSITION FIX           */
+/* ========================================== */
+.projects-grid .card {
+    transition: opacity 0.4s ease, transform 0.4s ease, max-width 0.4s ease-in-out, padding 0.4s ease, margin 0.4s ease;
+    opacity: 1;
+    transform: scale(1);
+    max-width: 500px; 
+    overflow: hidden;
+}
+
+.projects-grid .card.hide-card {
+    opacity: 0;
+    transform: scale(0.9);
+    max-width: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border: none;
+    pointer-events: none;
+}

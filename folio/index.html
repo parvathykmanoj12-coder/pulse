@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Portfolio of Parvathy K Manoj">
+        <title>Parvathy K Manoj - Portfolio</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link 
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <nav class="nav" aria-label="Main Navigation">
+            <div class="container nav-inner">
+                <span class="nav-brand">Parvathy K Manoj</span>
+                <ul class="nav-links">
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li>
+                         <button class="theme-btn" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <header class="hero" id="home">
+         <div class="container">
+           <p class="hero-tag reveal">Hey, I'm</p>
+           <h1 class="hero-name reveal">Parvathy K Manoj</h1>
+           <p class="hero-role reveal">
+            UI Designer &amp; Web Developer –
+            <span class="highlight">B.Tech CSE, Kerala</span>
+        </p>
+
+        <p class="hero-bio reveal">
+            I design systems, build for the web, and automate the boring stuff.
+        </p>
+
+        <div class="hero-ctas reveal">
+            <a href="#projects" class="btn btn-primary">
+                See My Projects
+            </a>
+
+            <a href="https://www.figma.com/design/pf8HwCMrGPvPoCdaypx5nx/Untitled?node-id=0-1&t=G0T5DAKA1iZnUBih-1"
+               target="_blank"
+               rel="noopener"
+               class="btn btn-secondary">
+                View Figma Design
+            </a>
+        </div>
+
+    </div>
+</header>
+     <main>
+
+    <section class="section" id="projects">
+        <div class="container">
+
+            <p class="section-label">01 — Work</p>
+            <h2 class="section-title">Projects</h2>
+
+            <div class="gallery-controls">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="design">Design</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="code">Code</button>
+            </div>
+            <div class="project-counter">
+                Showing <span id="count-num">3</span> project(s)
+            </div>
+        </div>
+
+        <div class="projects-grid">
+
+                <article class="card reveal" data-category="design">
+                    <span class="card-tag">UI / UX Design</span>
+                    <h3 class="card-title">Tide</h3>
+                    <p class="card-desc">
+                        A complete task-manager app design built in Figma:
+                        a token-based design system, seven screens, and a clickable prototype.
+                    </p>
+
+                    <div class="card-meta">
+                        <span class="chip">Figma</span>
+                        <span class="chip">Design System</span>
+                    </div>
+
+                    <div class="iframe-wrapper card-embed">
+                <iframe 
+                    src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fdesign%2Fpf8HwCMrGPvPoCdaypx5nx%2FUntitled%3Fnode-id%3D0-1%26t%3DGOT5DAKA1iZnUBih-1" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+                    <a href="https://www.figma.com/design/pf8HwCMrGPvPoCdaypx5nx/Untitled?node-id=0-1&t=G0T5DAKA1iZnUBih-1"
+                       target="_blank"
+                       rel="noopener"
+                       class="card-link">
+                        View Prototype ↗
+                    </a>
+                </article>
+                <article class="card reveal" data-category="web">
+                    <span class="card-tag">Web Development</span>
+                    <h3 class="card-title">Folio</h3>
+                    <p class="card-desc">
+                        This portfolio site. Hand-written sematic HTML, a custom CSS design system, and vanilla JavaScript for interactivity.
+                    </p>
+
+                    
+                </article>
+                <article class="card reveal" data-category="code">
+                    <span class="card-tag">Automation</span>
+                    <h3 class="card-title">Pulse</h3>
+                    <p class="card-desc">
+                        Coming after Session 03: a Python bot that sends automatic notifications.
+                    </p>
+
+                    
+                </article>
+
+            </div>
+
+        </div>
+        </div>
+    </section>
+<!-- ========================================== -->
+<!-- SUPPLEMENTARY TASK: BLOG SECTION           -->
+<!-- ========================================== -->
+<section class="section section-alt" id="blog">
+    <div class="container">
+        <p class="section-label">02 — Thoughts</p>
+        <h2 class="section-title">Latest Blog Posts</h2>
+        
+        <div class="blog-grid">
+            
+            <!-- BLOG POST 1 -->
+            <article class="blog-card reveal">
+                <div class="blog-meta">
+                    <span class="blog-date">June 10, 2026</span>
+                </div>
+                <h3 class="blog-title">Understanding CSS Token Systems</h3>
+                <p class="blog-excerpt">
+                    How translating Figma design foundations into clean CSS variables makes building responsive layout grids smooth, maintainable, and completely scaling-ready.
+                </p>
+                <a href="#" class="blog-link">Read More ↗</a>
+            </article>
+
+            <!-- BLOG POST 2 -->
+            <article class="blog-card reveal">
+                <div class="blog-meta">
+                    <span class="blog-date">June 05, 2026</span>
+                </div>
+                <h3 class="blog-title">The Power of Semantic HTML Elements</h3>
+                <p class="blog-excerpt">
+                    Why structured landmarks like main, section, and article matter for layout predictability, browser optimization, and deep web accessibility patterns.
+                </p>
+                <a href="#" class="blog-link">Read More ↗</a>
+            </article>
+
+            <!-- BLOG POST 3 -->
+            <article class="blog-card reveal">
+                <div class="blog-meta">
+                    <span class="blog-date">May 28, 2026</span>
+                </div>
+                <h3 class="blog-title">Clean Logic Architecture with JS</h3>
+                <p class="blog-excerpt">
+                    Mastering the find, listen, and change interaction pattern in vanilla JavaScript to build lightweight dark mode switch triggers and UI animations.
+                </p>
+                <a href="#" class="blog-link">Read More ↗</a>
+            </article>
+
+        </div> <!-- Closes .blog-grid -->
+    </div> <!-- Closes .container -->
+</section>
+    <section class="section" id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills</h2>
+            
+            <div class="skill reveal">
+                <div class="skill-head">
+                    <span class="skill-name">HTML &amp; CSS</span>
+                    <span class="skill-pct">75%</span>
+                </div>
+                <div class="skill-track">
+                    <div class="skill-fill" style="--w: 75%; background: var(--pri-low);"></div>
+                </div>
+            </div>
+            
+            <div class="skill reveal">
+                <div class="skill-head">
+                    <span class="skill-name">JavaScript</span>
+                    <span class="skill-pct">80%</span>
+                </div>
+                <div class="skill-track">
+                    <div class="skill-fill" style="--w: 80%; background: var(--pri-low);"></div>
+                </div>
+            </div>
+            
+            </div>
+    </section>
+    <!-- ========================================== -->
+    <!-- CONTACT SECTION                            -->
+    <!-- ========================================== -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            
+            <div class="contact-links">
+                <ul>
+                <li><a href="parvathykmanoj12@gmail.com" class="contact-link">Email Me</a></li>
+                <li><a href="https://github.com/parvathykmanoj12-coder" 
+                   target="_blank" 
+                   rel="noopener" 
+                   class="contact-link">GitHub</a>
+                
+                <li><a href="https://www.linkedin.com/in/parvathykmanoj" 
+                   target="_blank" 
+                   rel="noopener" 
+                   class="contact-link">LinkedIn</a>
+                 </ul>
+            </div>
+        </div>
+    </section>
+
+</main> <!-- Closes your single main container -->
+
+<!-- ========================================== -->
+<!-- FOOTER SECTION                             -->
+<!-- ========================================== -->
+<footer>
+    <div class="container">
+        <p>&copy; 2026 Parvathy K Manoj. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- ========================================== -->
+<!-- FLOATING BACK-TO-TOP BUTTON               -->
+<!-- ========================================== -->
+<button id="to-top" class="to-top-btn">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>  
