@@ -1,6 +1,7 @@
-# Pulse - Advanced News Scraper & Dynamic HTML Mailer
+# Pulse - Advanced News Scraper, HTML Mailer, & GitHub Portfolio Sync
 import requests
 import os
+import json
 import smtplib
 from bs4 import BeautifulSoup
 from email.mime.multipart import MIMEMultipart
@@ -31,9 +32,7 @@ def get_quote():
     except:
         return "Keep pushing forward no matter what."
 
-# -- TASK 2: MULTI-SOURCE HEADLINE WEB SCRAPER -------------------------------
 def scrape_news_headlines():
-    """Scrapes top headlines dynamically from 3 independent sources."""
     headlines = []
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
     
@@ -41,37 +40,68 @@ def scrape_news_headlines():
     try:
         res = requests.get("https://www.bbc.com/news", headers=headers, timeout=10)
         soup = BeautifulSoup(res.text, 'html.parser')
-        # BBC uses h2 tags for prime headlines
         title = soup.find('h2').get_text(strip=True)
         headlines.append({"source": "BBC News", "title": title, "url": "https://www.bbc.com/news"})
-    except Exception as e:
+    except:
         headlines.append({"source": "BBC News", "title": "Failed to scrape latest headlines", "url": "#"})
 
-    # Source 2: Hacker News (Tech headlines)
+    # Source 2: Hacker News
     try:
         res = requests.get("https://news.ycombinator.com/", headers=headers, timeout=10)
         soup = BeautifulSoup(res.text, 'html.parser')
         story = soup.find('span', class_='titleline').find('a')
         headlines.append({"source": "Hacker News", "title": story.get_text(strip=True), "url": story['href']})
-    except Exception as e:
+    except:
         headlines.append({"source": "Hacker News", "title": "Failed to scrape tech logs", "url": "#"})
 
-    # Source 3: Times of India / Alternative RSS/News endpoint
+    # Source 3: Google News RSS
     try:
         res = requests.get("https://news.google.com/news/rss", headers=headers, timeout=10)
-        soup = BeautifulSoup(res.text, 'xml') # parse standard XML structure
+        soup = BeautifulSoup(res.text, 'xml')
         item = soup.find('item')
         headlines.append({"source": "Google News Global", "title": item.title.text, "url": item.link.text})
-    except Exception as e:
+    except:
         headlines.append({"source": "Google News", "title": "Failed to extract international briefing", "url": "#"})
 
     return headlines
 
-# -- BUILDING THE FORMATTED HTML NEWSLETTER TEMPLATE -------------------------
+# -- TASK 3: GITHUB REPO SYNC ENGINE -----------------------------------------
+def sync_github_projects(username="parvathykmanoj12-coder"):
+    """Fetches public repositories from GitHub API and saves to projects.json"""
+    url = f"https://api.github.com/users/{username}/repos?sort=updated&per_page=10"
+    headers = {"Accept": "application/vnd.github.v3+json"}
+    
+    try:
+        print(f"Querying GitHub API for user: {username}...")
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()
+        repos = response.json()
+        
+        project_list = []
+        for repo in repos:
+            # Skip forks, focus on your custom builds
+            if not repo["fork"]:
+                project_list.append({
+                    "name": repo["name"],
+                    "description": repo["description"] or "A public development project card.",
+                    "url": repo["html_url"],
+                    "stars": repo["stargazers_count"],
+                    "language": repo["language"] or "Markdown",
+                    "updated_at": repo["updated_at"]
+                })
+        
+        # Save dynamic JSON directly into workspace folder context
+        with open("projects.json", "w", encoding="utf-8") as json_file:
+            json.dump(project_list, json_file, indent=4)
+        print(f"Successfully sync'd {len(project_list)} projects into projects.json!")
+        return True
+    except Exception as e:
+        print(f"GitHub API sync error: {e}")
+        return False
+
+# -- HTML NEWSLETTER BUILDER -------------------------------------------------
 def build_html_summary(weather, quote, news_list):
     time_stamp = datetime.now().strftime("%I:%M %p | %A, %d %B %Y")
-    
-    # Generate dynamic list items for news loop
     news_html_blocks = ""
     for item in news_list:
         news_html_blocks += f"""
@@ -81,8 +111,7 @@ def build_html_summary(weather, quote, news_list):
         </div>
         """
 
-    # Combined clean responsive HTML grid wrap
-    html_layout = f"""
+    return f"""
     <html>
     <body style="font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; padding: 20px; color: #333;">
         <div style="max-width: 600px; margin: 0 auto; background: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
@@ -103,54 +132,48 @@ def build_html_summary(weather, quote, news_list):
                 <h5 style="margin: 0 0 5px 0; color: #B7950B; text-transform: uppercase;">💭 Thought of the Day</h5>
                 <p style="margin: 0; font-style: italic; color: #7D6608; font-size: 14px;">{quote}</p>
             </div>
-            
             <p style="text-align: center; font-size: 11px; color: #BDC3C7; margin-top: 30px;">Pulse Engine Pipeline • Powered autonomously by GitHub Actions</p>
         </div>
     </body>
     </html>
     """
-    return html_layout
 
-# -- EMAIL AUTOMATION DISPATCH ENGINE -----------------------------------------
 def send_html_email(html_body):
     sender = os.environ.get("EMAIL_SENDER")
     password = os.environ.get("EMAIL_PASSWORD")
     receiver = os.environ.get("EMAIL_RECEIVER")
-    
     if not sender or not password or not receiver:
-        print("Skipping pipeline execution: Local settings sandbox.")
+        print("Skipping email execution: Sandbox mode.")
         return
 
-    # Use MIMEMultipart structure to indicate this is a styled HTML payload instead of text
     msg = MIMEMultipart("alternative")
     msg["Subject"] = "☕ Pulse - Your Morning HTML Newsletter"
     msg["From"] = sender
     msg["To"] = receiver
-    
     msg.attach(MIMEText(html_body, "html", "utf-8"))
 
     try:
-        print("Connecting to secure SMTP node to stream newsletter payload...")
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login(sender, password)
             server.send_message(msg)
-        print("HTML Briefing compiled and forwarded successfully!")
+        print("HTML Briefing delivered successfully!")
     except Exception as e:
-        print(f"Failed to complete SMTP payload delivery: {e}")
+        print(f"Failed SMTP delivery: {e}")
 
 # -- MAIN ENGINES RUNNER -----------------------------------------------------
 def run():
+    # 1. Fire up weather, quotes, and news scraper
     weather = get_weather()
     quote = get_quote()
     news = scrape_news_headlines()
     
     html_content = build_html_summary(weather, quote, news)
-    
-    # Save text/html log locally
     with open("daily_summary.txt", "w", encoding="utf-8") as f:
         f.write(html_content)
-        
     send_html_email(html_content)
+    
+    # 2. Trigger Task 3 Portfolio Sync
+    sync_github_projects()
 
 if __name__ == "__main__":
     run()

@@ -8,6 +8,9 @@ on:
 jobs:
   run-pulse:
     runs-on: ubuntu-latest
+    # Give the server token permission to write files back to the repository branch
+    permissions:
+      contents: write
     defaults:
       run:
         working-directory: folio
@@ -30,6 +33,15 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           EMAIL_RECEIVER: ${{ secrets.EMAIL_RECEIVER }}
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+
+      # New Step: Auto-commit the newly generated projects.json file back to master
+      - name: Auto-Commit Generated JSON Portfolio
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add projects.json
+          git diff-index --quiet HEAD || git commit -m "Autopilot Sync: Update projects.json structure via API"
+          git push origin master
 
       - name: Upload summary as artifact
         uses: actions/upload-artifact@v4
