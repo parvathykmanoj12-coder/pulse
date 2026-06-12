@@ -1,0 +1,34 @@
+[
+    {
+        "name": "pulse",
+        "description": "A public development project card.",
+        "url": "https://github.com/parvathykmanoj12-coder/pulse",
+        "stars": 0,
+        "language": "HTML",
+        "updated_at": "2026-06-12T05:20:20Z"
+    },
+    {
+        "name": "skills-communicate-using-markdown",
+        "description": "Exercise: Communicate using Markdown",
+        "url": "https://github.com/parvathykmanoj12-coder/skills-communicate-using-markdown",
+        "stars": 0,
+        "language": "Markdown",
+        "updated_at": "2026-05-26T15:45:39Z"
+    },
+    {
+        "name": "Voice_controlled_app",
+        "description": "This voice-controlled app assists visually impaired users via AI. It features real-time object recognition, OCR for reading text, and voice-guided GPS. Using speech-to-text, users navigate, identify currency, and manage tasks through voice commands, turning a smartphone into a virtual eye that fosters independence in daily life.",
+        "url": "https://github.com/parvathykmanoj12-coder/Voice_controlled_app",
+        "stars": 0,
+        "language": "Markdown",
+        "updated_at": "2026-01-16T04:23:59Z"
+    },
+    {
+        "name": "Taskly",
+        "description": "A public development project card.",
+        "url": "https://github.com/parvathykmanoj12-coder/Taskly",
+        "stars": 0,
+        "language": "Markdown",
+        "updated_at": "2025-09-13T07:18:03Z"
+    }
+]
