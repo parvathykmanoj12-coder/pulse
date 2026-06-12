@@ -88,3 +88,40 @@ if (filterButtons.length > 0 && projectCards.length > 0 && counterNum) {
         });
     });
 }
+document.addEventListener("DOMContentLoaded", () => {
+    // Path to the projects file that your GitHub Action bot auto-updates
+    const jsonPath = "projects.json"; 
+
+    // Find the container on your website where your project cards should live
+    const projectContainer = document.getElementById("project-cards-container");
+
+    if (!projectContainer) return;
+
+    fetch(jsonPath)
+        .then(response => {
+            if (!response.ok) throw new Error("Could not load autopilot project file");
+            return response.json();
+        })
+        .then(projects => {
+            // Clear out any old static placeholder cards
+            projectContainer.innerHTML = "";
+
+            // Loop through each dynamically generated project item
+            projects.forEach(project => {
+                const projectCard = `
+                    <div class="project-card" style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 6px;">
+                        <h3 style="margin-top: 0;"><a href="${project.url}" target="_blank" style="color: #4A90E2; text-decoration: none;">${project.name}</a></h3>
+                        <p style="color: #666; font-size: 14px;">${project.description}</p>
+                        <div style="font-size: 12px; color: #999;">
+                            <span>🛠️ ${project.language}</span> | <span>⭐ ${project.stars} Stars</span>
+                        </div>
+                    </div>
+                `;
+                projectContainer.innerHTML += projectCard;
+            });
+        })
+        .catch(error => {
+            console.error("Autopilot rendering error:", error);
+            projectContainer.innerHTML = "<p>Failed to load dynamic project pipeline metrics.</p>";
+        });
+});
