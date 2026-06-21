@@ -1,11 +1,11 @@
 [
     {
-        "name": "ieee-ignite-website",
+        "name": "ieee-ignite-web",
         "description": "A public development project card.",
-        "url": "https://github.com/parvathykmanoj12-coder/ieee-ignite-website",
+        "url": "https://github.com/parvathykmanoj12-coder/ieee-ignite-web",
         "stars": 0,
-        "language": "Markdown",
-        "updated_at": "2026-06-19T17:30:26Z"
+        "language": "CSS",
+        "updated_at": "2026-06-20T19:50:07Z"
     },
     {
         "name": "pulse",
@@ -13,7 +13,7 @@
         "url": "https://github.com/parvathykmanoj12-coder/pulse",
         "stars": 0,
         "language": "HTML",
-        "updated_at": "2026-06-19T07:40:16Z"
+        "updated_at": "2026-06-20T06:46:21Z"
     },
     {
         "name": "skills-communicate-using-markdown",
